@@ -46,7 +46,7 @@ class SkyltStr:
         self.plain_text = text
         self.mellanrum = mellanrum
 
-    def get_string(self, typsnitt):
+    def rendera_skylt(self, typsnitt):
         if self.plain_text != "":
             out = ""
             for char in self.plain_text:
@@ -58,5 +58,5 @@ class SkyltStr:
 if __name__=="__main__":
     typsnitt = ASCIITypsnitt.new_from_file("typsnitt_a.json")
 
-    a = SkyltStr("aaa")
-    print(a.get_string(typsnitt))
+    a = SkyltStr("ABCDEFGHIJKLMNOPQRS")
+    print(a.rendera_skylt(typsnitt))
