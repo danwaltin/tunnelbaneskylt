@@ -1,0 +1,41 @@
+{"vikt":10, "val":
+  [
+    {"text":"Förseningar ", "alternativ": ["på grund av ", "p.g.a "], "vikt": 20, "val":
+      [
+        {"vikt":5, "val":
+          ["tidigare vagnfel", "förarbrist", "tidigare strömavbrott", "tekniskt fel på banan", "ordningsproblem", "sjukdomsfall", "lövhalka", "hala spår"]
+        },
+        {"vikt":2, "val":
+          ["extremkyla", "stöld", "polisinsats", "strejk", "böjda spår", "förseningar"]
+        },
+        {"vikt":2, "val":
+          ["urspårning", "tågrån", "dig", "älg", ["Stefan", "Åsa", "Melker"], "masshysteri", "grovt tjänstefel", "tekniskt fel på bananen", "personalfest",
+            {"text":"plötslig och omfattande förarbrist ", "val":
+              ["",
+                {"vikt":3, "text":"till följd av ", "val":
+                  ["tidigare försening", "tidigare personalfest", "grov felplanering"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  , {"text":"Trafiken inställd ", "vikt":5, "val":
+      ["",
+        {"text":"p.g.a ", "val":
+          ["strömavbrott", "orkanvindar", "översvämmade tunnlar"]
+        },
+        {"text": "mellan ", "alternativ":
+          ["Globen", "Ropsten", "Alvik", "Rådmansgatan", "Odenplan", "Slussen"],
+          "val":
+            {"text":" och ", "val":
+              ["T-Centralen", "Akalla", "Fridhemsplan", "Hagsätra", "Farsta strand", ""]
+            }
+        }, "idag"
+      ]
+    }
+    , {"vikt":2,"text": "Vi förbehåller oss rätten att ", "val":["inte slutföra din resa", "låsa dörrarna vid behov", "dra in linjer på måfå", "utan förvarning tvärbromsa, på kul liksom"]}
+  , {"text":"nej","vikt":2}, {"text":"slayy @@", "vikt":1}
+  ]
+}

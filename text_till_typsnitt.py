@@ -9,10 +9,10 @@ class ASCIITypsnitt:
         self.h = h
 
     def render_char(self, char="", space=0):
-        if char in self.letterdict and len(char) == 1:
-            char_rendered = self.letterdict[char]
-        else:
-            char_rendered = ASCIITypsnitt.render_full_char(self.w, self.h, "?")
+        if char not in self.letterdict or len(char) != 1:
+            char = "@"
+        char_rendered = self.letterdict[char]
+
         return ASCIITypsnitt.add_strings(char_rendered, ASCIITypsnitt.render_full_char(space, self.h, " "))
 
     @classmethod
@@ -47,7 +47,7 @@ class ASCIITypsnitt:
         with open(file_path, "r") as file:
             json_dict = json.loads(file.read())
             #Byt ut punkter mot mellanslag, | mot radbrytningar
-            json_dict["characters"] = {k:v.replace("|", "\n").replace(".", " ") for k, v in json_dict["characters"].items()}
+            json_dict["characters"] = {k:v.replace("|", "\n").replace(".", " ").replace("#", "*") for k, v in json_dict["characters"].items()}
             print(json_dict["characters"])
             new_typsnitt = ASCIITypsnitt(json_dict["characters"], json_dict["w"], json_dict["h"])
             return new_typsnitt
