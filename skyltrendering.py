@@ -54,7 +54,7 @@ if __name__=="__main__":
             time.sleep(1/args.f)
             os.system('clear')
 
-            print(f"{bcolors.WARNING}{rendera_utsnitt(renderad_anledning, pos, os.get_terminal_size().columns)}{bcolors.ENDC}")
+            print("\n" * 5 + f"{bcolors.WARNING}{rendera_utsnitt(renderad_anledning, pos, os.get_terminal_size().columns)}{bcolors.ENDC}")
             if args.d:
                 print(förseningsanledning)
                 print(args)
