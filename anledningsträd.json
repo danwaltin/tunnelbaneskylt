@@ -1,12 +1,12 @@
 {"vikt":10, "val":
   [
-    {"text":"Förseningar ", "alternativ": ["på grund av ", "p.g.a "], "vikt": 20, "val":
+    {"text":"Förseningar ", "alternativ": ["på grund av ", "p.g.a. "], "vikt": 20, "val":
       [
-        {"vikt":5, "val":
-          ["tidigare vagnfel", "förarbrist", "tidigare strömavbrott", "tekniskt fel på banan", "ordningsproblem", "sjukdomsfall", "lövhalka", "hala spår"]
+        {"vikt":4, "val":
+          ["tidigare vagnfel", "förarbrist", "signalfel", "tidigare strömavbrott", "tekniskt fel på banan", "ordningsproblem", "sjukdomsfall", "lövhalka", "hala spår"]
         },
         {"vikt":2, "val":
-          ["extremkyla", "stöld", "polisinsats", "strejk", "böjda spår", "förseningar"]
+          ["extremkyla", "stöld", "polisinsats", "skyltsystemet", "anledning", "okänd anledning", "strejk", "böjda spår", "förseningar"]
         },
         {"vikt":2, "val":
           ["urspårning", "tågrån", "dig", "älg", ["Stefan", "Åsa", "Melker"], "masshysteri", "grovt tjänstefel", "tekniskt fel på bananen", "personalfest",
@@ -32,10 +32,10 @@
             {"text":" och ", "val":
               ["T-Centralen", "Akalla", "Fridhemsplan", "Hagsätra", "Farsta strand", ""]
             }
-        }, "idag"
+        }, "idag", "då spår saknas"
       ]
     }
     , {"vikt":2,"text": "Vi förbehåller oss rätten att ", "val":["inte slutföra din resa", "låsa dörrarna vid behov", "dra in linjer på måfå", "utan förvarning tvärbromsa, på kul liksom"]}
-  , {"text":"nej","vikt":2}, {"text":"slayy @@", "vikt":1}
+  , {"text":"nej","vikt":2}, {"text":"slayy @@", "vikt":1}, "På grund av Sonnys mammas vikt kör tåget sakta"
   ]
 }

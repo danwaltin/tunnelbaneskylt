@@ -1,5 +1,6 @@
 import os
 import time
+import random
 import argparse
 import anledning
 import text_till_typsnitt as ttt
@@ -16,7 +17,6 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     EGEN = '\033[93m'
-
 
 
 def rendera_text(text, typsnitt):
@@ -40,16 +40,18 @@ if __name__=="__main__":
     parser.add_argument("-s", help="Hastighet", type=int, default=2)
     parser.add_argument("-t", help="Filsökväg för typsnitt (json)", type=str, default="typsnitt_a.json")
     parser.add_argument("-d", help="Debug-läge", action="store_true")
+    parser.add_argument("-i", help="Ignorera viktade svar", action="store_true")
+
     parser.add_argument("-m", help="Eget meddelande", type=str, default="")
     args = parser.parse_args()
 
     typsnitt = ttt.ASCIITypsnitt.new_from_file(args.t)
-    destination = rendera_text(anledning.slumpad_anledning("stationer.json"), typsnitt)
-    förseningsanledning = anledning.slumpad_anledning("anledningsträd.json")
+    förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i)
     if args.m != "":
         förseningsanledning = args.m
     renderad_anledning = rendera_text(förseningsanledning, typsnitt)
 
+    tid_uppdatera_destination = 0
     print('\033[?25l', end="") #Göm pekare
 
     pos = 0
@@ -57,16 +59,25 @@ if __name__=="__main__":
         try:
             time.sleep(1/args.f)
             os.system('clear')
+            terminalbredd = os.get_terminal_size().columns
 
-            if pos > len(förseningsanledning) * 12:
-                förseningsanledning = anledning.slumpad_anledning("anledningsträd.json")
+            if time.time() > tid_uppdatera_destination:
+                destination = rendera_text(anledning.slumpad_anledning("stationer.json"), typsnitt)
+                tid = rendera_text(anledning.slumpad_anledning("tider.json"), typsnitt)
+                tid_textbredd = max([len(rad) for rad in tid.split("\n")])
+                rad_uppe = ttt.ASCIITypsnitt.add_strings(rendera_utsnitt(destination, terminalbredd - tid_textbredd, terminalbredd - tid_textbredd), tid)
+                pos = -1
+                tid_uppdatera_destination = time.time() + random.randint(5, 90)
+
+            if pos > max([len(rad) for rad in renderad_anledning.split("\n")]) + terminalbredd + 3:
+                förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i)
                 renderad_anledning = rendera_text(förseningsanledning, typsnitt)
                 pos = 0
 
-            terminalbredd = os.get_terminal_size().columns
+
+
             meddelande = rendera_utsnitt(renderad_anledning, pos, terminalbredd)
-            destinationstext = rendera_utsnitt(destination, terminalbredd, terminalbredd)
-            print("\n" * 5 + f"{bcolors.EGEN}{destinationstext + ("\n" * 2) + meddelande}{bcolors.ENDC}")
+            print("\n" * 5 + f"{bcolors.EGEN}{rad_uppe + ("\n" * 2) + meddelande}{bcolors.ENDC}")
             if args.d:
                 print(förseningsanledning)
                 print(args)
