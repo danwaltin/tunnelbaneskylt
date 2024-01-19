@@ -16,11 +16,23 @@ class ASCIITypsnitt:
         return ASCIITypsnitt.add_strings(char_rendered, ASCIITypsnitt.render_full_char(space, self.h, " "))
 
     @classmethod
+    def pad_string(cls, rader, height):
+        radlängd = max([len(rad) for rad in rader])
+        nya_rader = [f"{x: <{radlängd}}" for x in rader]
+        for i in range(max(height - len(rader), 0)):
+            nya_rader.append(" " * radlängd)
+        return nya_rader
+
+    @classmethod
     def add_strings(cls, a, b):
         #Dela upp a, b i rader, sätt ihop rad för rad och kombinera till en sträng
         if b != "":
             if a != "":
-                c = "\n".join([x[0] + x[1] for x in zip(a.split("\n"), b.split("\n"))])
+                a_rader = a.split("\n")
+                b_rader = b.split("\n")
+                b_rader = ASCIITypsnitt.pad_string(b_rader, max(len(a_rader), len(b_rader)))
+                a_rader = ASCIITypsnitt.pad_string(a_rader, max(len(a_rader), len(b_rader)))
+                c = "\n".join([x[0] + x[1] for x in zip(a_rader, b_rader)])
                 return c
             return b
         return a
