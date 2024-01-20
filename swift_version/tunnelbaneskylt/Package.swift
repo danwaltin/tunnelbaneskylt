@@ -12,5 +12,9 @@ let package = Package(
 				.process("typsnitt_a.json")
 			]
 		),
+		.testTarget(
+			name: "TunnelbaneskyltTests",
+			dependencies: [
+				.byName(name: "tunnelbaneskylt")])
     ]
 )
