@@ -36,6 +36,6 @@
       ]
     }
     , {"vikt":2,"text": "Vi förbehåller oss rätten att ", "val":["inte slutföra din resa", "låsa dörrarna vid behov", "dra in linjer på måfå", "utan förvarning tvärbromsa, på kul liksom"]}
-  , {"text":"nej","vikt":2}, {"text":"slayy @@", "vikt":1}, {"text":"På grund av Sonnys mammas vikt kör tåget sakta", "censur":true}
+  , {"text":"nej","vikt":2}, {"text":"slayy @@", "vikt":1}
   ]
 }
