@@ -41,12 +41,13 @@ if __name__=="__main__":
     parser.add_argument("-t", help="Filsökväg för typsnitt (json)", type=str, default="typsnitt_a.json")
     parser.add_argument("-d", help="Debug-läge", action="store_true")
     parser.add_argument("-i", help="Ignorera viktade svar", action="store_true")
+    parser.add_argument("-c", help="Censurera grövre skämt", action="store_true")
 
     parser.add_argument("-m", help="Eget meddelande", type=str, default="")
     args = parser.parse_args()
 
     typsnitt = ttt.ASCIITypsnitt.new_from_file(args.t)
-    förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i)
+    förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i, censur=args.c)
     if args.m != "":
         förseningsanledning = args.m
     renderad_anledning = rendera_text(förseningsanledning, typsnitt)
@@ -62,7 +63,7 @@ if __name__=="__main__":
             terminalbredd = os.get_terminal_size().columns
 
             if time.time() > tid_uppdatera_destination:
-                destination = rendera_text(anledning.slumpad_anledning("stationer.json"), typsnitt)
+                destination = rendera_text(anledning.slumpad_anledning("stationer.json", censur=args.c), typsnitt)
                 tid = rendera_text(anledning.slumpad_anledning("tider.json"), typsnitt)
                 tid_textbredd = max([len(rad) for rad in tid.split("\n")])
                 rad_uppe = ttt.ASCIITypsnitt.add_strings(rendera_utsnitt(destination, terminalbredd - tid_textbredd, terminalbredd - tid_textbredd), tid)
@@ -70,11 +71,9 @@ if __name__=="__main__":
                 tid_uppdatera_destination = time.time() + random.randint(5, 90)
 
             if pos > max([len(rad) for rad in renderad_anledning.split("\n")]) + terminalbredd + 3:
-                förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i)
+                förseningsanledning = anledning.slumpad_anledning("anledningsträd.json", args.i, censur=args.c)
                 renderad_anledning = rendera_text(förseningsanledning, typsnitt)
                 pos = 0
-
-
 
             meddelande = rendera_utsnitt(renderad_anledning, pos, terminalbredd)
             print("\n" * 5 + f"{bcolors.EGEN}{rad_uppe + ("\n" * 2) + meddelande}{bcolors.ENDC}")
@@ -83,6 +82,6 @@ if __name__=="__main__":
                 print(args)
             pos += args.s
         except KeyboardInterrupt:
-            print("Avslutad")
+            print(rendera_text("Avslutad", typsnitt))
             print('\033[?25h', end="")
             break

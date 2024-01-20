@@ -1,7 +1,9 @@
 {"val":
   [
-    {"vikt":5,"alternativ":["1","2","3","4","5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "-"], "val":[{"vikt":8,"text":" min"}, {"vikt":1, "text":" tim"}, {"vikt":1,"text":" km"}]
+    {"vikt":10,"alternativ":[{"vikt":10, "slumptal":true, "min":1, "max":10}, {"vikt":3, "slumptal":true, "min":11, "max":20}, {"vikt":1, "slumptal":true, "min":-20, "max":100}, {"text":"-", "vikt":1}], "val":[{"vikt":8,"text":" min"}, {"vikt":1, "text":" tim"}, {"vikt":1,"text":" km"}]
     },
-    {"vikt":1,"val":[" ", "Kort tåg"]}
+    {"vikt":3,"val":[" ", "Kort tåg"]},
+    {"vikt":1, "val":["igår", "sen", "om ett tag", "kanske"]},
+    {"vikt":2, "alternativ":{"slumptal":true, "min":0, "max":24, "siffror":2, "val":":"}, "val":{"slumptal":true, "min":0, "max":59, "siffror":2}}
   ]
 }
