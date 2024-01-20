@@ -11,31 +11,31 @@ import XCTest
 @testable import tunnelbaneskylt
 
 class TestDisplayStringBase: XCTestCase {
-	var screen: Screen?
+	var font: Font?
 	var actual: [String]?
 	
 	override func setUp() async throws {
-		screen = nil
+		font = nil
 		actual = nil
 	}
 
-	func given_screen(spaceBetweenCharacters: Int = 2, withFont font: [String: String]) {
-		let font = Font(characters: font)
-		screen = Screen(font: font, spaceBetweenCharacters: spaceBetweenCharacters)
+	func given_font(_ font: [String: String]) {
+		self.font = Font(characters: font)
 	}
 	
-	func when_display(_ s: String, file: StaticString = #file, line: UInt = #line) {
-		guard let screen else {
-			XCTFail("No screen is defined", file: file, line: line)
+	func when_display(_ s: String, spaceBetweenCharacters: Int = 2, file: StaticString = #file, line: UInt = #line) {
+		guard let font else {
+			XCTFail("No font is defined", file: file, line: line)
 			return
 		}
 
+		let screen = Screen(font: font, spaceBetweenCharacters: spaceBetweenCharacters)
 		actual = screen.displayString(s)
 	}
 	
 	func then_shouldDisplay(_ expected: [String], file: StaticString = #file, line: UInt = #line) {
 		guard let actual else {
-			XCTFail("No screen is defined", file: file, line: line)
+			XCTFail("No actual result is available", file: file, line: line)
 			return
 		}
 

@@ -8,9 +8,8 @@
 final class DisplayString_OneCharacter: TestDisplayStringBase {
 	
 	func test_fontWithOneCharacter_size_3x3() throws {
-		given_screen(
-			withFont: [
-				"x": "|#.#|.#.|#.#|"])
+		given_font([
+			"x": "|#.#|.#.|#.#|"])
 		
 		when_display("x")
 		
@@ -22,10 +21,9 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 	}
 	
 	func test_fontWithTwoCharacters_size_3x3_displayFirstCharacter() throws {
-		given_screen(
-			withFont: [
-				"1": "|.##|.#.|.#.|",
-				"2": "|#.#|#.#|#.#|"])
+		given_font([
+			"1": "|.##|.#.|.#.|",
+			"2": "|#.#|#.#|#.#|"])
 		
 		when_display("1")
 		
@@ -37,10 +35,9 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 	}
 	
 	func test_fontWithTwoCharacters_size_3x3_displaySecondCharacter() throws {
-		given_screen(
-			withFont: [
-				"1": "|.##|.#.|.#.|",
-				"2": "|#.#|#.#|#.#|"])
+		given_font([
+			"1": "|.##|.#.|.#.|",
+			"2": "|#.#|#.#|#.#|"])
 		
 		when_display("2")
 		
