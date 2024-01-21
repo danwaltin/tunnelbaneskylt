@@ -13,6 +13,15 @@ struct StaticPanel {
 	let spaceBetweenCharacters: Int
 	
 	func display(left: String, right: String) -> Glyph {
-		Glyph.null
+		let leftGlyph = font.glyph(from: left, spaceBetweenCharacters: spaceBetweenCharacters)
+		let rightGlyph = font.glyph(from: right, spaceBetweenCharacters: spaceBetweenCharacters)
+
+		let glyphWidth = leftGlyph.width + rightGlyph.width
+		let spaceBetweenLeftAndRight = width - glyphWidth
+		
+		if spaceBetweenLeftAndRight >= 0 {
+			return [leftGlyph, rightGlyph].concatenate(spaceBetween: spaceBetweenLeftAndRight)
+		}
+		return Glyph.null
 	}
 }

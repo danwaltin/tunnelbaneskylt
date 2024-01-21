@@ -20,4 +20,5 @@ struct Glyph {
 	}
 	
 	var height: Int {lines.count}
+	var width: Int {lines.maxWidth()}
 }
