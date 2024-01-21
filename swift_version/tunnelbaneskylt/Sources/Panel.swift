@@ -37,14 +37,40 @@ struct StaticPanel {
 }
 
 struct ScrollingPanel {
-	let string: String
-	let environment: Environment
+	private let glyph: Glyph
+	private let positionFromLeft: Int
+	private let panelWidth: Int
+	
+	init(string: String, environment: Environment) {
+		let glyph = environment.font.glyph(from: string, spaceBetweenCharacters: environment.spaceBetweenCharacters)
+		self.init(glyph: glyph, positionFromLeft: environment.panelWidth, panelWidth: environment.panelWidth)
+	}
+
+	private init(glyph: Glyph, positionFromLeft: Int, panelWidth: Int) {
+		self.glyph = glyph
+		self.positionFromLeft = positionFromLeft
+		self.panelWidth = panelWidth
+	}
 
 	func scrollLeft() -> ScrollingPanel {
-		self
+		let newPositionFromLeft = positionFromLeft + glyph.width <= 1 ? panelWidth : positionFromLeft - 1
+		return ScrollingPanel(glyph: glyph, positionFromLeft: newPositionFromLeft, panelWidth: panelWidth)
 	}
 	
 	func display() -> Glyph {
-		Glyph.null
+		if positionFromLeft == panelWidth {
+			return glyph.trimRight(glyph.width).padLeft(positionFromLeft)
+		}
+
+		let trimLeft = positionFromLeft < 0 ? abs(positionFromLeft) : 0
+		let trimRight = glyph.width - (panelWidth - positionFromLeft)
+		let padLeft = max(0, positionFromLeft)
+		let padRight = positionFromLeft + glyph.width >= panelWidth ? 0 : panelWidth - (positionFromLeft + glyph.width)
+
+		return glyph
+			.trimLeft(trimLeft)
+			.trimRight(trimRight)
+			.padLeft(padLeft)
+			.padRight(padRight)
 	}
 }
