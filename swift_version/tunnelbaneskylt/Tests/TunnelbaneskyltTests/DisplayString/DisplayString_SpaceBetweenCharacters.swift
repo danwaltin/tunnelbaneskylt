@@ -101,7 +101,7 @@ final class DisplayString_SpaceBetweenCharacters: TestDisplayStringBase {
 			"1": "|.#.|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|"])
 		
-		when_display("xx", spaceBetweenCharacters: 2)
+		when_display("12", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
 			" *   * *",
@@ -113,7 +113,7 @@ final class DisplayString_SpaceBetweenCharacters: TestDisplayStringBase {
 	// MARK: - Display three characters
 	func test_displayThreeCharacters_123_spaceBetween_2() throws {
 		given_font([
-			"1": "|.##|.#.|.#.|",
+			"1": "|.#.|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|",
 			"3": "|###|###|###|"])
 		
@@ -128,7 +128,7 @@ final class DisplayString_SpaceBetweenCharacters: TestDisplayStringBase {
 	
 	func test_displayThreeCharacters_321_spaceBetween_3() throws {
 		given_font([
-			"1": "|.##|.#.|.#.|",
+			"1": "|.#.|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|",
 			"3": "|###|###|###|"])
 		

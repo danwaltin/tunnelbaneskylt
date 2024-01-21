@@ -14,37 +14,56 @@ struct Screen {
 
 extension Screen {
 	func displayString(_ s: String) -> [String] {
-		return displayGlyph(from: s)
-	}
-	
-	private func displayGlyph(from character: String) -> [String] {
-		guard let characterDefinition = font.characters[character] else {
+		
+		let glyphs = s.map {font.displayGlyph(from: $0)}
+		let heights = glyphs.map {$0.count}
+		let maxHeight = heights.max() ?? 0
+		
+		let heightAdjustedGlyphs = glyphs.map {expand(glyph: $0, toHeight: maxHeight)}
+
+		return concatenate(glyphs: heightAdjustedGlyphs)
+		guard let first = s.first else {
 			return []
 		}
-
-		let characterLines = characterDefinition.expandingZeroWidths().split(separator: "|")
-		let widths = characterLines.map{$0.count}
 		
-		let maxLength = widths.max() ?? 0
-		
-		let glyph = characterLines.map { String($0
-			.replacing("#", with: "*")
-			.replacing(".", with: " ")
-			.padding(toLength: maxLength, withPad: " ", startingAt: 0)) }
-		
-		return glyph
+		return font.displayGlyph(from: first)
 	}
 	
-}
+	private func concatenate(glyphs: [[String]]) -> [String] {
+		let heights = Set(glyphs.map({$0.count}))
+		assert(heights.count <= 1)
 
-fileprivate extension String {
-	func expandingZeroWidths() -> String {
-		var s = self
-		while s.contains("||") {
-			s = s.replacing("||", with: "| |")
+		guard let first = glyphs.first else {
+			return []
 		}
 		
-		return s
+		let height = first.count
+		
+		var lines = [String]()
+		
+		for i in 0..<height {
+			let glyphRowsAtIndex = glyphs.map{$0[i]}
+			
+			let line = glyphRowsAtIndex.joined(separator: String(repeating: " ", count: spaceBetweenCharacters))
+			lines.append(line)
+		}
+		return lines
 	}
-
+	
+	private func expand(glyph: [String], toHeight height: Int) -> [String] {
+		if glyph.count >= height {
+			return glyph
+		}
+		
+		let widths = glyph.map {$0.count}
+		let maxWidth = widths.max() ?? 0
+		
+		let numberOfExtraLines = height - glyph.count
+		
+		var newGlyph = glyph
+		for _ in 0..<numberOfExtraLines {
+			newGlyph.append(String(repeating: " ", count: maxWidth))
+		}
+		return newGlyph
+	}
 }

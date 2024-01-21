@@ -16,6 +16,12 @@ guard let fontContent = try String(contentsOf: fontUrl).data(using: .utf8) else 
 }
 
 let font = try JSONDecoder().decode(Font.self, from: fontContent)
+let screen = Screen(font: font, spaceBetweenCharacters: 2)
 
-print(font.characters["a"])
+let text = screen.displayString("h")
+
+for line in text {
+	print(line)
+}
+
 print("Hello, world!")

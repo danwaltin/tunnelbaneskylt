@@ -116,39 +116,39 @@ final class DisplayString_DifferentWidthsAndHeights: TestDisplayStringBase {
 		when_display("12", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
-			"*   ****",
-			" *   **"
+			"*    ****",
+			" *    ** "
 		])
 	}
 
 	// MARK: - Three characters, different heights
 	func test_displayThreeCharacters_firstHighest() throws {
 		given_font([
-			"1": "|###|###|###|",
+			"1": "|##|##|##|",
 			"2": "|###|.#.|",
 			"3": "|###|#.#|"])
 		
 		when_display("123", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
-			"***  ***  ***",
-			"***   *   * *",
-			"***          "
+			"**  ***  ***",
+			"**   *   * *",
+			"**          "
 		])
 	}
 
 	func test_displayThreeCharacters_secondHighest() throws {
 		given_font([
 			"1": "|###|.#.|",
-			"2": "|###|###|###|",
+			"2": "|##|##|##|",
 			"3": "|###|#.#|"])
 		
 		when_display("123", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
-			"***  ***  ***",
-			" *   ***  * *",
-			"     ***     "
+			"***  **  ***",
+			" *   **  * *",
+			"     **     "
 		])
 	}
 
@@ -156,14 +156,14 @@ final class DisplayString_DifferentWidthsAndHeights: TestDisplayStringBase {
 		given_font([
 			"1": "|###|.#.|",
 			"2": "|###|#.#|",
-			"3": "|###|###|###|"])
+			"3": "|##|##|##|"])
 		
 		when_display("123", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
-			"***  ***  ***",
-			" *   * *  ***",
-			"          ***"
+			"***  ***  **",
+			" *   * *  **",
+			"          **"
 		])
 	}
 }
