@@ -14,10 +14,14 @@ struct Screen {
 
 extension Screen {
 	func displayString(_ s: String) -> [String] {
-		return [
-			"* *",
-			" * ",
-			"* *"
-		]
+		guard let character = font.characters[s] else {
+			return []
+		}
+
+		let characterLines = character.split(separator: "|")
+		
+		return characterLines.map { String($0
+			.replacing("#", with: "*")
+			.replacing(".", with: " ")) }
 	}
 }

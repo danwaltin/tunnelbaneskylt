@@ -35,7 +35,7 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 
 	func test_fontWithTwoCharacters_displayFirstCharacter() throws {
 		given_font([
-			"1": "|.##|.#.|.#.|",
+			"1": "|.#.|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|"])
 		
 		when_display("1")
@@ -85,7 +85,7 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 	
 	func test_noStartSeparator() throws {
 		given_font([
-			"1": "xxx|.x.|xxx|"])
+			"1": "###|.#.|###|"])
 		
 		when_display("1")
 		
@@ -98,7 +98,7 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 	
 	func test_noEndSeparator() throws {
 		given_font([
-			"1": "|xxx|.x.|xxx"])
+			"1": "|###|.#.|###"])
 		
 		when_display("1")
 		

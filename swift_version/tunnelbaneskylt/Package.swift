@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "tunnelbaneskylt",
+	platforms: [
+		.macOS(.v13)
+	],
     targets: [
         .executableTarget(
             name: "tunnelbaneskylt",
