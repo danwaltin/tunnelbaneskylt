@@ -1,6 +1,6 @@
 //
-//  StaticPanelWidths.swift
-//  
+//  DisplayStaticPanel.swift
+//
 //
 //  Created by Dan Waltin on 2024-01-21.
 //
@@ -9,14 +9,7 @@ import Foundation
 import XCTest
 @testable import tunnelbaneskylt
 
-final class StaticPanelWidths: TestBase {
-	var panelWidth: Int?
-	
-	override func setUp() {
-		super.setUp()
-		
-		panelWidth = nil
-	}
+final class DisplayStaticPanel: TestPanelsBase {
 
 	// MARK: - Empty strings
 	func test_leftIsEmptyString() {
@@ -159,11 +152,7 @@ final class StaticPanelWidths: TestBase {
 		])
 	}
 
-	// MARK: -
-	func given_panelWidth(_ width: Int) {
-		panelWidth = width
-	}
-	
+	// MARK: -	
 	func when_display(left: String, right: String, spaceBetweenCharacters: Int, file: StaticString = #file, line: UInt = #line) {
 		guard let font else {
 			XCTFail("No font is defined", file: file, line: line)
@@ -175,7 +164,8 @@ final class StaticPanelWidths: TestBase {
 			return
 		}
 		
-		let panel = StaticPanel(left: left, right: right, font: font, width: panelWidth, spaceBetweenCharacters: spaceBetweenCharacters)
+		let environment = Environment(font: font, panelWidth: panelWidth, spaceBetweenCharacters: spaceBetweenCharacters)
+		let panel = StaticPanel(left: left, right: right, environment: environment)
 		
 		actual = panel.display()
 	}

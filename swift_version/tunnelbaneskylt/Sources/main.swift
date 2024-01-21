@@ -5,33 +5,26 @@ import Foundation
 
 do {
 	let font = try loadFont()
+		
+	let environment = Environment(font: font, panelWidth: 100, spaceBetweenCharacters: 2)
 	
-	let hello = font.glyph(from: "Hej", spaceBetweenCharacters: 2)
-	let world = font.glyph(from: "världen", spaceBetweenCharacters: 2)
-	let helloWorld = font.glyph(from: "Hej världen", spaceBetweenCharacters: 2)
-	
-	let panelWidth = 100
-	
-	displayPanel(left: hello, right: world, width: panelWidth)
-	displayPanel(glyph: helloWorld, width: panelWidth)
-	
+	displayPanel(left: "Hej", right: "världen", environment: environment)
+	displayPanel(left: "Hej världen", right: "", environment: environment)
+	displayPanel(left: "", right: "Hej världen", environment: environment)
+
 } catch {
 	print("Failed to run: \(error)")
 	exit(1)
 }
 
-private func displayPanel(left: Glyph, right: Glyph, width: Int) {
-	let glyphWidths = left.lines.maxWidth() + right.lines.maxWidth()
-	assert(glyphWidths <= width)
-	let spaceBetween = width - glyphWidths
-	
-	let glyph = [left, right].concatenate(spaceBetween: spaceBetween)
-	
-	displayPanel(glyph: glyph, width: width)
+private func displayPanel(left: String, right: String, environment: Environment) {
+	let panel = StaticPanel(left: left, right: right, environment: environment)
+
+	displayPanel(glyph: panel.display(), width: environment.panelWidth)
 }
 
 private func displayPanel(glyph: Glyph, width: Int) {
-	assert(glyph.lines.maxWidth() <= width)
+	assert(glyph.width <= width)
 	
 	print("+-" + String(repeating: "-", count: width) + "-+")
 	print("| " + String(repeating: " ", count: width) + " |")

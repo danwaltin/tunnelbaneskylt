@@ -10,29 +10,27 @@ import Foundation
 struct StaticPanel {
 	let left: String
 	let right: String
-	let font: Font
-	let width: Int
-	let spaceBetweenCharacters: Int
+	let environment: Environment
 	
 	func display() -> Glyph {
-		if width == 0 {
+		if environment.panelWidth == 0 {
 			return Glyph.null
 		}
 		
-		let leftGlyph = font.glyph(from: left, spaceBetweenCharacters: spaceBetweenCharacters)
-		let rightGlyph = font.glyph(from: right, spaceBetweenCharacters: spaceBetweenCharacters)
+		let leftGlyph = environment.font.glyph(from: left, spaceBetweenCharacters: environment.spaceBetweenCharacters)
+		let rightGlyph = environment.font.glyph(from: right, spaceBetweenCharacters: environment.spaceBetweenCharacters)
 		
-		if width < leftGlyph.width {
-			return leftGlyph.trimRight(leftGlyph.width - width)
+		if environment.panelWidth < leftGlyph.width {
+			return leftGlyph.trimRight(leftGlyph.width - environment.panelWidth)
 		}
 
 		let glyphWidth = leftGlyph.width + rightGlyph.width
 
-		if width < glyphWidth {
-			return [leftGlyph, rightGlyph.trimRight(glyphWidth - width)].concatenate(spaceBetween: 0)
+		if environment.panelWidth < glyphWidth {
+			return [leftGlyph, rightGlyph.trimRight(glyphWidth - environment.panelWidth)].concatenate(spaceBetween: 0)
 		}
 		
-		let spaceBetweenLeftAndRight = width - glyphWidth
+		let spaceBetweenLeftAndRight = environment.panelWidth - glyphWidth
 
 		return [leftGlyph, rightGlyph].concatenate(spaceBetween: spaceBetweenLeftAndRight)
 	}
