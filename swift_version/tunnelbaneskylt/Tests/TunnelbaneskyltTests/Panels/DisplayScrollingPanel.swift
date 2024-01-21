@@ -175,7 +175,7 @@ final class DisplayScrollingPanel: TestPanelsBase {
 		var panel = ScrollingPanel(string: string, environment: environment)
 
 		for _ in 0..<scrolledTimes {
-			panel = panel.scrollLeft()
+			panel.scrollLeft()
 		}
 		
 		actual = panel.display()

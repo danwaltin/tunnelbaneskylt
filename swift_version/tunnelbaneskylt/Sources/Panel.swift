@@ -42,7 +42,7 @@ struct StaticPanel: Panel {
 
 struct ScrollingPanel: Panel {
 	private let glyph: Glyph
-	private let positionFromLeft: Int
+	private var positionFromLeft: Int
 	private let panelWidth: Int
 	
 	init(string: String, environment: Environment) {
@@ -56,9 +56,9 @@ struct ScrollingPanel: Panel {
 		self.panelWidth = panelWidth
 	}
 
-	func scrollLeft() -> ScrollingPanel {
+	mutating func scrollLeft() {
 		let newPositionFromLeft = positionFromLeft + glyph.width <= 1 ? panelWidth : positionFromLeft - 1
-		return ScrollingPanel(glyph: glyph, positionFromLeft: newPositionFromLeft, panelWidth: panelWidth)
+		positionFromLeft = newPositionFromLeft
 	}
 	
 	func display() -> Glyph {
