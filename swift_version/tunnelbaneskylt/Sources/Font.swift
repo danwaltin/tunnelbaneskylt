@@ -17,6 +17,13 @@ struct Font: Decodable {
 }
 
 extension Font {
+	func glyph(from s: String, spaceBetweenCharacters: Int) -> Glyph {
+		
+		let glyphs = s.map {self.glyph(from: $0)}
+		
+		return glyphs.concatenate(spaceBetween: spaceBetweenCharacters)
+	}
+
 	func glyph(from character: Character) -> Glyph {
 		guard let characterDefinition = characters[String(character)] else {
 			return Glyph.null

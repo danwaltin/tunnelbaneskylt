@@ -1,5 +1,5 @@
 //
-//  DisplayString_SpaceBetweenCharacters.swift
+//  GlyphFromString_SpaceBetweenCharacters.swift
 //
 //
 //  Created by Dan Waltin on 2024-01-20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DisplayString_SpaceBetweenCharacters: TestDisplayStringBase {
+final class GlyphFromString_SpaceBetweenCharacters: TestDisplayStringBase {
 	
 	// MARK: - Display one character
 	func test_displayOneCharacter_spaceBetween_0() throws {

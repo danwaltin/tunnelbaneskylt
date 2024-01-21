@@ -1,13 +1,13 @@
 //
-//  DisplayString_DifferentWidthsAndHeights.swift
-//  
+//  GlyphFromString_DifferentWidthsAndHeights.swift
+//
 //
 //  Created by Dan Waltin on 2024-01-20.
 //
 
 import Foundation
 
-final class DisplayString_DifferentWidthsAndHeights: TestDisplayStringBase {
+final class GlyphFromString_DifferentWidthsAndHeights: TestDisplayStringBase {
 	// MARK: - One character, different widths
 	func test_displayOneCharacter_threeLines_firstLineWidest() throws {
 		given_font([

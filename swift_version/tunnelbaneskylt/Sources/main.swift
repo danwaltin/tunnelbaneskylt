@@ -3,26 +3,45 @@
 
 import Foundation
 
-let fontFilename = "typsnitt_a"
-let fontFileExtension = "json"
-guard let fontUrl = Bundle.module.url(forResource: fontFilename, withExtension: fontFileExtension) else {
-	print("Could not create find font file \(fontFilename).\(fontFileExtension)")
+do {
+	let font = try loadFont()
+	
+	let text = font.glyph(from: "Hej världen", spaceBetweenCharacters: 2)
+	let width = text.lines.maxWidth()
+	displayPanel(glyph: text, width: width)
+	
+} catch {
+	print("Failed to run: \(error)")
 	exit(1)
 }
 
-guard let fontContent = try String(contentsOf: fontUrl).data(using: .utf8) else {
-	print("Failed to read font content from \(fontUrl)")
-	exit(1)
+private func displayPanel(glyph: Glyph, width: Int) {
+	print("+-" + String(repeating: "-", count: width) + "-+")
+	print("| " + String(repeating: " ", count: width) + " |")
+	for line in glyph.lines {
+		print("| " + line + " |")
+	}
+	print("| " + String(repeating: " ", count: width) + " |")
+	print("+-" + String(repeating: "-", count: width) + "-+")
 }
 
-let font = try JSONDecoder().decode(Font.self, from: fontContent)
-let screen = Screen(font: font, spaceBetweenCharacters: 2)
-
-let text = screen.displayString("Hej världen")
-
-print("")
-for line in text {
-	print(line)
+enum FontException: Error {
+	case couldNotFindFontFile(fileName: String)
+	case couldNotReadFontContent(fromUrl: URL)
 }
-print("")
 
+private func loadFont() throws -> Font {
+	let fontFilename = "typsnitt_a"
+	let fontFileExtension = "json"
+	guard let fontUrl = Bundle.module.url(forResource: fontFilename, withExtension: fontFileExtension) else {
+		throw FontException.couldNotFindFontFile(fileName: "\(fontFilename).\(fontFileExtension)")
+	}
+
+	guard let fontContent = try String(contentsOf: fontUrl).data(using: .utf8) else {
+		throw FontException.couldNotReadFontContent(fromUrl: fontUrl)
+	}
+
+	let font = try JSONDecoder().decode(Font.self, from: fontContent)
+
+	return font
+}

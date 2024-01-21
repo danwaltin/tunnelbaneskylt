@@ -1,11 +1,11 @@
 //
-//  DisplayString_OneCharacter.swift
+//  GlyphFromString_OneCharacter.swift
 //
 //
 //  Created by Dan Waltin on 2024-01-20.
 //
 
-final class DisplayString_OneCharacter: TestDisplayStringBase {
+final class GlyphFromString_OneCharacter: TestDisplayStringBase {
 	
 	func test_periodAsSpace() throws {
 		given_font([

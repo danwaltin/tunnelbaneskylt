@@ -1,13 +1,13 @@
 //
-//  DisplayString_EmptyString.swift
-//  
+//  GlyphFromString_EmptyString.swift
+//
 //
 //  Created by Dan Waltin on 2024-01-20.
 //
 
 import Foundation
 
-final class DisplayString_EmptyString: TestDisplayStringBase {
+final class GlyphFromString_EmptyString: TestDisplayStringBase {
 	
 	func test_equalHeights_displayEmptyString() throws {
 		given_font([
