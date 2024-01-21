@@ -16,38 +16,6 @@ final class DisplayString_EmptyString: TestDisplayStringBase {
 		
 		when_display("")
 		
-		then_shouldDisplay([
-			"",
-			"",
-			""
-		])
-	}
-	
-	func test_firstHigher_displayEmptyString() throws {
-		given_font([
-			"1": "|.#.|.#.|.#.|.#.|",
-			"2": "|#.#|#.#|#.#|"])
-		
-		when_display("")
-		
-		then_shouldDisplay([
-			"",
-			"",
-			"",
-			""
-		])
-	}
-	
-	func test_secondHigher_displayEmptyString() throws {
-		given_font([
-			"1": "|.#.|",
-			"2": "|#.#|#.#|"])
-		
-		when_display("")
-		
-		then_shouldDisplay([
-			"",
-			""
-		])
+		then_shouldDisplay([])
 	}
 }

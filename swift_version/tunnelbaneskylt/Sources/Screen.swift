@@ -22,11 +22,6 @@ extension Screen {
 		let heightAdjustedGlyphs = glyphs.map {expand(glyph: $0, toHeight: maxHeight)}
 
 		return concatenate(glyphs: heightAdjustedGlyphs)
-		guard let first = s.first else {
-			return []
-		}
-		
-		return font.displayGlyph(from: first)
 	}
 	
 	private func concatenate(glyphs: [[String]]) -> [String] {
