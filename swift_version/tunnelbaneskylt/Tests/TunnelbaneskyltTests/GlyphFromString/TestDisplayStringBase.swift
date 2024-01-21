@@ -12,7 +12,7 @@ import XCTest
 
 class TestDisplayStringBase: XCTestCase {
 	var font: Font?
-	var actual: [String]?
+	var actual: Glyph?
 	
 	override func setUp() async throws {
 		font = nil
@@ -29,8 +29,7 @@ class TestDisplayStringBase: XCTestCase {
 			return
 		}
 
-		let screen = Screen(font: font, spaceBetweenCharacters: spaceBetweenCharacters)
-		actual = screen.displayString(s)
+		actual = font.glyph(from: s, spaceBetweenCharacters: spaceBetweenCharacters)
 	}
 	
 	func then_shouldDisplay(_ expected: [String], file: StaticString = #file, line: UInt = #line) {
@@ -39,7 +38,7 @@ class TestDisplayStringBase: XCTestCase {
 			return
 		}
 
-		XCTAssertEqual(actual, expected, file: file, line: line)
+		XCTAssertEqual(actual.lines, expected, file: file, line: line)
 	}
 }
 
