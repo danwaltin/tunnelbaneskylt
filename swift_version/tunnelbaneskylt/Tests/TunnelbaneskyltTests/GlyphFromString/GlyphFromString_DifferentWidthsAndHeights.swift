@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GlyphFromString_DifferentWidthsAndHeights: TestDisplayStringBase {
+final class GlyphFromString_DifferentWidthsAndHeights: TestGlyphFromStringBase {
 	// MARK: - One character, different widths
 	func test_displayOneCharacter_threeLines_firstLineWidest() throws {
 		given_font([

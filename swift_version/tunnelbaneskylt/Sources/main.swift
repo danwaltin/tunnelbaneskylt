@@ -6,16 +6,33 @@ import Foundation
 do {
 	let font = try loadFont()
 	
-	let text = font.glyph(from: "Hej världen", spaceBetweenCharacters: 2)
-	let width = text.lines.maxWidth()
-	displayPanel(glyph: text, width: width)
+	let hello = font.glyph(from: "Hej", spaceBetweenCharacters: 2)
+	let world = font.glyph(from: "världen", spaceBetweenCharacters: 2)
+	let helloWorld = font.glyph(from: "Hej världen", spaceBetweenCharacters: 2)
+	
+	let panelWidth = 100
+	
+	displayPanel(left: hello, right: world, width: panelWidth)
+	displayPanel(glyph: helloWorld, width: panelWidth)
 	
 } catch {
 	print("Failed to run: \(error)")
 	exit(1)
 }
 
+private func displayPanel(left: Glyph, right: Glyph, width: Int) {
+	let glyphWidths = left.lines.maxWidth() + right.lines.maxWidth()
+	assert(glyphWidths <= width)
+	let spaceBetween = width - glyphWidths
+	
+	let glyph = [left, right].concatenate(spaceBetween: spaceBetween)
+	
+	displayPanel(glyph: glyph, width: width)
+}
+
 private func displayPanel(glyph: Glyph, width: Int) {
+	assert(glyph.lines.maxWidth() <= width)
+	
 	print("+-" + String(repeating: "-", count: width) + "-+")
 	print("| " + String(repeating: " ", count: width) + " |")
 	for line in glyph.lines {

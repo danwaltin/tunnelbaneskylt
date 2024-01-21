@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GlyphFromString_SpaceBetweenCharacters: TestDisplayStringBase {
+final class GlyphFromString_SpaceBetweenCharacters: TestGlyphFromStringBase {
 	
 	// MARK: - Display one character
 	func test_displayOneCharacter_spaceBetween_0() throws {

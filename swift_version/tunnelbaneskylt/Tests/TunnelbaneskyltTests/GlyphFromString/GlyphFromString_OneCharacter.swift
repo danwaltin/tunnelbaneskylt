@@ -5,7 +5,7 @@
 //  Created by Dan Waltin on 2024-01-20.
 //
 
-final class GlyphFromString_OneCharacter: TestDisplayStringBase {
+final class GlyphFromString_OneCharacter: TestGlyphFromStringBase {
 	
 	func test_periodAsSpace() throws {
 		given_font([

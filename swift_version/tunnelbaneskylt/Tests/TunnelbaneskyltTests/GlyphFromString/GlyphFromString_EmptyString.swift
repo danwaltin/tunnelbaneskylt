@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GlyphFromString_EmptyString: TestDisplayStringBase {
+final class GlyphFromString_EmptyString: TestGlyphFromStringBase {
 	
 	func test_equalHeights_displayEmptyString() throws {
 		given_font([
