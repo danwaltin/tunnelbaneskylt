@@ -8,23 +8,20 @@ do {
 		
 	let environment = Environment(font: font, panelWidth: 100, spaceBetweenCharacters: 2)
 	
-	displayPanel(left: "Hej", right: "världen", environment: environment)
-	displayPanel(left: "Hej världen", right: "", environment: environment)
-	displayPanel(left: "", right: "Hej världen", environment: environment)
+	let topPanel = StaticPanel(left: "Hej", right: "världen", environment: environment)
+	let bottomPanel = ScrollingPanel(string: "Hej världen", environment: environment)
+
+	display(panel: topPanel, environment: environment)
+	display(panel: bottomPanel, environment: environment)
 
 } catch {
 	print("Failed to run: \(error)")
 	exit(1)
 }
 
-private func displayPanel(left: String, right: String, environment: Environment) {
-	let panel = StaticPanel(left: left, right: right, environment: environment)
-
-	displayPanel(glyph: panel.display(), width: environment.panelWidth)
-}
-
-private func displayPanel(glyph: Glyph, width: Int) {
-	assert(glyph.width <= width)
+private func display(panel: Panel, environment: Environment) {
+	let glyph = panel.display()
+	let width = environment.panelWidth
 	
 	print("+-" + String(repeating: "-", count: width) + "-+")
 	print("| " + String(repeating: " ", count: width) + " |")

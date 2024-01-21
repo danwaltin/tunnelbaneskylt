@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct StaticPanel {
+protocol Panel {
+	func display() -> Glyph
+}
+
+struct StaticPanel: Panel {
 	let left: String
 	let right: String
 	let environment: Environment
@@ -36,7 +40,7 @@ struct StaticPanel {
 	}
 }
 
-struct ScrollingPanel {
+struct ScrollingPanel: Panel {
 	private let glyph: Glyph
 	private let positionFromLeft: Int
 	private let panelWidth: Int
