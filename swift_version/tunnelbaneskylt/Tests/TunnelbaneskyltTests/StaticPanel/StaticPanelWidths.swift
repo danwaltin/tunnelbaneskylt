@@ -137,9 +137,9 @@ final class StaticPanelWidths: TestBase {
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
-			"*        ",
-			"   **    ",
-			"      **"
+			"*      ",
+			"   **  ",
+			"     **"
 		])
 	}
 
@@ -175,8 +175,8 @@ final class StaticPanelWidths: TestBase {
 			return
 		}
 		
-		let panel = StaticPanel(font: font, width: panelWidth, spaceBetweenCharacters: spaceBetweenCharacters)
+		let panel = StaticPanel(left: left, right: right, font: font, width: panelWidth, spaceBetweenCharacters: spaceBetweenCharacters)
 		
-		actual = panel.display(left: left, right: right)
+		actual = panel.display()
 	}
 }
