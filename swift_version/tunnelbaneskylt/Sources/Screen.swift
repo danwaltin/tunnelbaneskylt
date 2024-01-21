@@ -15,50 +15,33 @@ struct Screen {
 extension Screen {
 	func displayString(_ s: String) -> [String] {
 		
-		let glyphs = s.map {font.displayGlyph(from: $0)}
-		let heights = glyphs.map {$0.count}
+		let glyphs = s.map {font.glyph(from: $0)}
+		let heights = glyphs.map {$0.height}
 		let maxHeight = heights.max() ?? 0
 		
-		let heightAdjustedGlyphs = glyphs.map {expand(glyph: $0, toHeight: maxHeight)}
+		let heightAdjustedGlyphs = glyphs.map {$0.expand(toHeight: maxHeight)}
 
 		return concatenate(glyphs: heightAdjustedGlyphs)
 	}
 	
-	private func concatenate(glyphs: [[String]]) -> [String] {
-		let heights = Set(glyphs.map({$0.count}))
+	private func concatenate(glyphs: [Glyph]) -> [String] {
+		let heights = Set(glyphs.map({$0.height}))
 		assert(heights.count <= 1)
 
 		guard let first = glyphs.first else {
 			return []
 		}
 		
-		let height = first.count
+		let height = first.height
 		
 		var lines = [String]()
 		
 		for i in 0..<height {
-			let glyphRowsAtIndex = glyphs.map{$0[i]}
+			let glyphRowsAtIndex = glyphs.map{$0.lines[i]}
 			
 			let line = glyphRowsAtIndex.joined(separator: String(repeating: " ", count: spaceBetweenCharacters))
 			lines.append(line)
 		}
 		return lines
-	}
-	
-	private func expand(glyph: [String], toHeight height: Int) -> [String] {
-		if glyph.count >= height {
-			return glyph
-		}
-		
-		let widths = glyph.map {$0.count}
-		let maxWidth = widths.max() ?? 0
-		
-		let numberOfExtraLines = height - glyph.count
-		
-		var newGlyph = glyph
-		for _ in 0..<numberOfExtraLines {
-			newGlyph.append(String(repeating: " ", count: maxWidth))
-		}
-		return newGlyph
 	}
 }

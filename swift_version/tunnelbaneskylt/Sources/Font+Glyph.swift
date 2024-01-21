@@ -1,5 +1,5 @@
 //
-//  Font+DisplayGlyph.swift
+//  Font+Glyph.swift
 //  
 //
 //  Created by Dan Waltin on 2024-01-21.
@@ -8,9 +8,9 @@
 import Foundation
 
 extension Font {
-	func displayGlyph(from character: Character) -> [String] {
+	func glyph(from character: Character) -> Glyph {
 		guard let characterDefinition = characters[String(character)] else {
-			return []
+			return Glyph.null
 		}
 
 		let characterLines = characterDefinition.expandingZeroWidths().split(separator: "|")
@@ -23,7 +23,7 @@ extension Font {
 			.replacing(".", with: " ")
 			.padding(toLength: maxLength, withPad: " ", startingAt: 0)) }
 		
-		return glyph
+		return Glyph(lines: glyph)
 	}
 }
 
