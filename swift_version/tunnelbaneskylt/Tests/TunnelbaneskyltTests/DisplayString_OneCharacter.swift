@@ -7,7 +7,7 @@
 
 final class DisplayString_OneCharacter: TestDisplayStringBase {
 	
-	func test_fontWithOneCharacter_size_3x3() throws {
+	func test_periodAsSpace() throws {
 		given_font([
 			"x": "|#.#|.#.|#.#|"])
 		
@@ -19,8 +19,21 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 			"* *"
 		])
 	}
-	
-	func test_fontWithTwoCharacters_size_3x3_displayFirstCharacter() throws {
+
+	func test_spaceAsSpace() throws {
+		given_font([
+			"x": "|# #| # |# #|"])
+		
+		when_display("x")
+		
+		then_shouldDisplay([
+			"* *",
+			" * ",
+			"* *"
+		])
+	}
+
+	func test_fontWithTwoCharacters_displayFirstCharacter() throws {
 		given_font([
 			"1": "|.##|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|"])
@@ -34,7 +47,7 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 		])
 	}
 	
-	func test_fontWithTwoCharacters_size_3x3_displaySecondCharacter() throws {
+	func test_fontWithTwoCharacters_displaySecondCharacter() throws {
 		given_font([
 			"1": "|.##|.#.|.#.|",
 			"2": "|#.#|#.#|#.#|"])
@@ -45,6 +58,54 @@ final class DisplayString_OneCharacter: TestDisplayStringBase {
 			"* *",
 			"* *",
 			"* *"
+		])
+	}
+	
+	func test_oneLineOfSpaces() throws {
+		given_font([
+			"1": "   "])
+		
+		when_display("1")
+		
+		then_shouldDisplay([
+			"   ",
+		])
+	}
+	
+	func test_oneLineOfPeriods() throws {
+		given_font([
+			"1": "..."])
+		
+		when_display("1")
+		
+		then_shouldDisplay([
+			"   ",
+		])
+	}
+	
+	func test_noStartSeparator() throws {
+		given_font([
+			"1": "xxx|.x.|xxx|"])
+		
+		when_display("1")
+		
+		then_shouldDisplay([
+			"***",
+			" * ",
+			"***",
+		])
+	}
+	
+	func test_noEndSeparator() throws {
+		given_font([
+			"1": "|xxx|.x.|xxx"])
+		
+		when_display("1")
+		
+		then_shouldDisplay([
+			"***",
+			" * ",
+			"***",
 		])
 	}
 }

@@ -48,7 +48,20 @@ final class DisplayString_DifferentWidthsAndHeights: TestDisplayStringBase {
 			"   * "
 		])
 	}
-	
+
+	func test_displayOneCharacter_threeLines_firstLineZeroWidth() throws {
+		given_font([
+			"x": "||.#..|..#|"])
+		
+		when_display("x")
+		
+		then_shouldDisplay([
+			"    ",
+			" *  ",
+			"  * "
+		])
+	}
+
 	// MARK: - Two characters, different widths
 	func test_displayTwoCharacters_differentWidths() throws {
 		given_font([
