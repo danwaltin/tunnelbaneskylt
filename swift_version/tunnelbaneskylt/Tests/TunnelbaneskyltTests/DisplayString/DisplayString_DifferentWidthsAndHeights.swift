@@ -62,13 +62,58 @@ final class DisplayString_DifferentWidthsAndHeights: TestDisplayStringBase {
 		])
 	}
 
+	func test_displayOneCharacter_fourLines_firstAndThirdLinesZeroWidth() throws {
+		given_font([
+			"x": "||.#..||..#|"])
+		
+		when_display("x")
+		
+		then_shouldDisplay([
+			"    ",
+			" *  ",
+			"    ",
+			"  * "
+		])
+	}
+
+	func test_displayOneCharacter_fourLines_firstTwoLinesZeroWidth() throws {
+		given_font([
+			"x": "|||.#..|..#|"])
+		
+		when_display("x")
+		
+		then_shouldDisplay([
+			"    ",
+			"    ",
+			" *  ",
+			"  * "
+		])
+	}
+
+	func test_displayOneCharacter_mulitpleLines_linesOfZeroWidthInBeginningAndEnd() throws {
+		given_font([
+			"x": "|||.#.|.#||||"])
+		
+		when_display("x")
+		
+		then_shouldDisplay([
+			"   ",
+			"   ",
+			" * ",
+			" * ",
+			"   ",
+			"   ",
+			"   "
+		])
+	}
+
 	// MARK: - Two characters, different widths
 	func test_displayTwoCharacters_differentWidths() throws {
 		given_font([
 			"1": "|#|.#.|",
 			"2": "|####|.##.|"])
 		
-		when_display("x", spaceBetweenCharacters: 2)
+		when_display("12", spaceBetweenCharacters: 2)
 		
 		then_shouldDisplay([
 			"*   ****",

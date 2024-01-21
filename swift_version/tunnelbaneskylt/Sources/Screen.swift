@@ -14,14 +14,37 @@ struct Screen {
 
 extension Screen {
 	func displayString(_ s: String) -> [String] {
-		guard let character = font.characters[s] else {
+		return displayGlyph(from: s)
+	}
+	
+	private func displayGlyph(from character: String) -> [String] {
+		guard let characterDefinition = font.characters[character] else {
 			return []
 		}
 
-		let characterLines = character.split(separator: "|")
+		let characterLines = characterDefinition.expandingZeroWidths().split(separator: "|")
+		let widths = characterLines.map{$0.count}
 		
-		return characterLines.map { String($0
+		let maxLength = widths.max() ?? 0
+		
+		let glyph = characterLines.map { String($0
 			.replacing("#", with: "*")
-			.replacing(".", with: " ")) }
+			.replacing(".", with: " ")
+			.padding(toLength: maxLength, withPad: " ", startingAt: 0)) }
+		
+		return glyph
 	}
+	
+}
+
+fileprivate extension String {
+	func expandingZeroWidths() -> String {
+		var s = self
+		while s.contains("||") {
+			s = s.replacing("||", with: "| |")
+		}
+		
+		return s
+	}
+
 }
