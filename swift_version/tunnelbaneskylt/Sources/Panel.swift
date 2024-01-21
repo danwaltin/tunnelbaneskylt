@@ -35,3 +35,16 @@ struct StaticPanel {
 		return [leftGlyph, rightGlyph].concatenate(spaceBetween: spaceBetweenLeftAndRight)
 	}
 }
+
+struct ScrollingPanel {
+	let string: String
+	let environment: Environment
+
+	func scrollLeft() -> ScrollingPanel {
+		self
+	}
+	
+	func display() -> Glyph {
+		Glyph.null
+	}
+}

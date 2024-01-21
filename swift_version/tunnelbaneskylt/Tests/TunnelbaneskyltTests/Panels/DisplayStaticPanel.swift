@@ -11,12 +11,17 @@ import XCTest
 
 final class DisplayStaticPanel: TestPanelsBase {
 
-	// MARK: - Empty strings
-	func test_leftIsEmptyString() {
+	override func setUp() {
+		super.setUp()
+		
 		given_font([
 			"1": "|#|.|.|",
 			"2": "|..|##|..|",
 			"3": "|...|...|###|"])
+	}
+
+	// MARK: - Empty strings
+	func test_leftIsEmptyString() {
 		given_panelWidth(10)
 		
 		when_display(left: "", right: "13", spaceBetweenCharacters: 2)
@@ -29,10 +34,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 	}
 
 	func test_rightIsEmptyString() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(10)
 		
 		when_display(left: "12", right: "", spaceBetweenCharacters: 2)
@@ -45,10 +46,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 	}
 
 	func test_leftAndRightAreEmptyStrings() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(10)
 		
 		when_display(left: "", right: "", spaceBetweenCharacters: 2)
@@ -58,10 +55,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 
 	// MARK: - Zero width
 	func test_zeroWidth() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(0)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
@@ -71,10 +64,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 
 	// MARK: - Width equal to glyphs width
 	func test_widthEqualToSumOfLeftAndRightWidths() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(8)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
@@ -88,10 +77,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 
 	// MARK: Width greater than glyphs width
 	func test_widthOneGreaterThanSumOfLeftAndRightWidths() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(9)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
@@ -104,10 +89,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 	}
 
 	func test_widthTenGreaterThanSumOfLeftAndRightWidths() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(17)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 1)
@@ -121,10 +102,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 
 	// MARK: - Width less than glyphs width
 	func test_widthOneLessThanSumOfLeftAndRightWidths() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(7)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
@@ -137,10 +114,6 @@ final class DisplayStaticPanel: TestPanelsBase {
 	}
 
 	func test_widthOneLessThanLeftWidth() {
-		given_font([
-			"1": "|#|.|.|",
-			"2": "|..|##|..|",
-			"3": "|...|...|###|"])
 		given_panelWidth(4)
 		
 		when_display(left: "12", right: "3", spaceBetweenCharacters: 2)
@@ -160,7 +133,7 @@ final class DisplayStaticPanel: TestPanelsBase {
 		}
 
 		guard let panelWidth else {
-			XCTFail("No font is defined", file: file, line: line)
+			XCTFail("No panelWidth is defined", file: file, line: line)
 			return
 		}
 		
